@@ -1,5 +1,5 @@
 // ── Interfaces ────────────────────────────────────────────────────────────────
-interface GpaEntry {
+interface Gpa {
   label: string;
   value: string;
 }
@@ -10,7 +10,7 @@ interface Education {
   school: string;
   dept: string;
   detail: string;
-  gpa: GpaEntry[];
+  gpa: Gpa[];
 }
 
 interface Project {
@@ -20,6 +20,7 @@ interface Project {
   title: string;
   role: string;
   bullets: string[];
+  url?: string;
 }
 
 interface SkillGroup {
@@ -28,27 +29,44 @@ interface SkillGroup {
   tags: string[];
 }
 
-interface AwardEntry {
+interface Award {
   id: string;
   year: string;
   title: string;
   org: string;
 }
 
-interface ExtraEntry {
+interface Activity {
   id: string;
+  period: string;
   role: string;
   org: string;
 }
 
+interface Data {
+  name: { en: string; ko: string };
+  email: string;
+  phone: string;
+  github: string;
+  tagline: string;
+  interests: string[];
+  education: Education[];
+  projects: Project[];
+  skills: SkillGroup[];
+  awards: Award[];
+  honors: Award[];
+  activities: Activity[];
+}
+
 // ── Data ──────────────────────────────────────────────────────────────────────
-export const DATA = {
+export const DATA: Data = {
   name: { en: 'Donghyun Kim', ko: '김동현' },
+  phone: '+82 10-2188-9221',
   email: 'luciok1203@snu.ac.kr',
   github: 'github.com/luciok1203',
   tagline:
-    'Undergraduate student in ECE, SNU — passionate about Machine Learning and Computer Vision.',
-  interests: ['Machine Learning', 'Deep Learning', 'Computer Vision'],
+    'Undergraduate student in ECE, SNU — interested in machine learning, neural networks, and medical AI.',
+  interests: ['Machine Learning', 'Neural Networks', 'Medical AI'],
 
   education: [
     {
@@ -63,43 +81,90 @@ export const DATA = {
       id: 'sejong',
       period: 'Mar. 2023 — Feb. 2025',
       school: 'Sejong Science High School',
-      dept: '16th cohort',
+      dept: '',
       detail: '',
       gpa: [],
     },
-  ] satisfies Education[],
+  ],
 
   projects: [
     {
       id: 'alisha',
       period: 'Dec. 2025 — Feb. 2026',
-      org: 'Waffle Studio',
+      org: 'WaffleStudio',
       title: 'Alisha',
       role: 'Frontend Developer',
-      bullets: [],
+      bullets: [
+        'Unified campus announcement service for SNU',
+        'Implemented user and post CRUD',
+      ],
+      url: 'https://github.com/wafflestudio/23-5-team2-web',
     },
-  ] satisfies Project[],
+    {
+      id: 'grade-prediction',
+      period: 'Fall 2023',
+      org: 'Sejong Science High School',
+      title: 'GPA Prediction with Neural Networks',
+      role: 'Team Lead (4-person team)',
+      bullets: [
+        'Built a GPA prediction model using a 3-layer MLP with TensorFlow/Keras',
+        'Identified limitations including small dataset size (n=32) and improper encoding of categorical features',
+      ],
+      url: 'https://colab.research.google.com/drive/1kvJ_F5LQVfGzDLh-PCLI3FQ8DfPHxwGg?usp=sharing',
+    },
+  ],
 
   skills: [
-    { id: 'lang', group: 'Programming Languages', tags: ['Python', 'C++'] },
+    {
+      id: 'lang',
+      group: 'Programming Languages',
+      tags: ['Python', 'C++', 'TypeScript'],
+    },
     {
       id: 'framework',
       group: 'Frameworks & Libraries',
-      tags: ['React', 'TypeScript'],
+      tags: ['React', 'NumPy', 'TensorFlow'],
     },
     { id: 'tools', group: 'Tools', tags: ['Git', 'Linux'] },
-  ] satisfies SkillGroup[],
+  ],
 
-  awards: [] as AwardEntry[],
-
-  scholarships: [
+  awards: [
     {
-      id: 'hanyonggyo-2026',
-      year: '2026.03',
-      title: 'Han Yong-gyo Scholarship',
-      org: 'Han Yong-gyo Scholarship Foundation',
+      id: 'seoul-science-exhibition-2023',
+      year: 'Oct. 2023',
+      title: 'Excellence Prize, 65th Seoul Science Exhibition Preliminary',
+      org: 'Seoul Metropolitan Science Exhibition Hall',
     },
-  ] satisfies AwardEntry[],
+    {
+      id: 'rne-2023',
+      year: 'Dec. 2023',
+      title:
+        'Excellence Award, Science Gifted R&E Research Presentation Contest',
+      org: 'Korea Foundation for the Advancement of Science and Creativity',
+    },
+  ],
 
-  extracurricular: [] as ExtraEntry[],
+  honors: [
+    {
+      id: 'merit-2026-1',
+      year: 'Mar. 2026',
+      title: 'Merit-Based Tuition Scholarship (90% tuition waiver)',
+      org: 'Seoul National University',
+    },
+    {
+      id: 'hanyongkyo-2026-1',
+      year: 'Mar. 2026',
+      title: 'Han Yong-Kyo Scholarship',
+      org: 'Han Yong-Kyo Scholarship Foundation',
+    },
+  ],
+
+  activities: [
+    {
+      id: 'waffle',
+      period: 'Sep. 2025 — Present',
+      role: 'Frontend Developer',
+      org: 'WaffleStudio, SNU',
+    },
+  ],
 };

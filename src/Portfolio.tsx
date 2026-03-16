@@ -15,7 +15,8 @@ const useFadeIn = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           el.classList.add('visible');
-          obs.disconnect();
+        } else {
+          el.classList.remove('visible');
         }
       },
       { threshold: 0.1 }
@@ -54,15 +55,16 @@ const SectionHeader = ({ title }: { title: string }) => (
 const Nav = () => {
   const links = [
     { label: 'Education', href: '#education' },
-    { label: 'Projects', href: '#projects' },
+    { label: 'Project Experiences', href: '#projects' },
     { label: 'Skills', href: '#skills' },
-    { label: 'Awards', href: '#awards' },
+    { label: 'Awards & Honors', href: '#awards' },
+    { label: 'Activities', href: '#activities' },
   ];
 
   return (
     <nav>
       <a href="#top" className="nav-logo">
-        DK
+        {DATA.name.en}
       </a>
       <ul className="nav-links">
         {links.map(({ label, href }) => (
@@ -78,7 +80,6 @@ const Nav = () => {
 const Hero = () => (
   <section id="top" className="hero" style={{ border: 'none' }}>
     <div className="hero-text fade-in visible">
-      <span className="hero-tag">Undergraduate Researcher</span>
       <h1 className="hero-name">
         {DATA.name.en.split(' ')[0]} <span>{DATA.name.en.split(' ')[1]}</span>
       </h1>
@@ -97,6 +98,10 @@ const Hero = () => (
           <span className="contact-dot" />
           {DATA.github}
         </a>
+        <span className="hero-contact-item">
+          <span className="contact-dot" />
+          {DATA.phone}
+        </span>
       </div>
     </div>
 
@@ -123,21 +128,6 @@ const Hero = () => (
             </span>
           ))}
         </div>
-      </div>
-      <div
-        className="hero-card fade-in visible"
-        style={{ animationDelay: '0.5s' }}
-      >
-        <div className="hero-card-label">Academic Performance</div>
-        <div className="hero-card-value">
-          4.09{' '}
-          <span
-            style={{ fontSize: '1rem', fontWeight: 400, color: 'var(--gray)' }}
-          >
-            / 4.30
-          </span>
-        </div>
-        <div className="hero-card-sub">Avg. GPA · 1st Year</div>
       </div>
     </div>
   </section>
@@ -184,7 +174,18 @@ const Projects = () => (
               <span className="project-org">{project.org}</span>
             </div>
             <div>
-              <div className="project-title">{project.title}</div>
+              {project.url ? (
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="project-title project-title-link"
+                >
+                  {project.title} ↗
+                </a>
+              ) : (
+                <div className="project-title">{project.title}</div>
+              )}
               <div className="project-role">{project.role}</div>
               {project.bullets.length > 0 && (
                 <ul className="project-bullets">
@@ -251,31 +252,37 @@ const Awards = () => (
           </div>
         )}
         <div>
-          <div className="awards-subheader">Scholarships</div>
-          {DATA.scholarships.map((scholarship) => (
-            <AwardRow key={scholarship.id} entry={scholarship} />
+          <div className="awards-subheader">Honors</div>
+          {DATA.honors.map((honor) => (
+            <AwardRow key={honor.id} entry={honor} />
           ))}
         </div>
       </div>
-      {DATA.extracurricular.length > 0 && (
-        <div style={{ marginTop: '3rem' }}>
-          <div className="awards-subheader">Extracurricular</div>
-          <div className="extra-list">
-            {DATA.extracurricular.map((extra) => (
-              <div key={extra.id} className="extra-item">
-                <span className="extra-role">{extra.role}</span>
-                <span style={{ color: 'var(--gray)', fontSize: '0.75rem' }}>
-                  ·
-                </span>
-                <span className="extra-org">{extra.org}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
     </FadeSection>
   </section>
 );
+
+const Activities = () => {
+  if (DATA.activities.length === 0) return null;
+  return (
+    <section id="activities">
+      <FadeSection>
+        <SectionHeader title="Activities" />
+        <div className="extra-list">
+          {DATA.activities.map((activity) => (
+            <div key={activity.id} className="extra-item">
+              <div className="extra-period">{activity.period}</div>
+              <div>
+                <div className="extra-role">{activity.org}</div>
+                <div className="extra-org">{activity.role}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </FadeSection>
+    </section>
+  );
+};
 
 const Footer = () => (
   <footer>
@@ -283,7 +290,7 @@ const Footer = () => (
       <div className="footer-name">{DATA.name.en}</div>
       <div className="footer-email">{DATA.email}</div>
     </div>
-    <div className="footer-copy">© 2026 {DATA.name.en}</div>
+    <div className="footer-copy">2026 {DATA.name.en}</div>
   </footer>
 );
 
@@ -296,6 +303,7 @@ const Portfolio = () => (
     <Projects />
     <Skills />
     <Awards />
+    <Activities />
     <Footer />
   </>
 );
