@@ -8,9 +8,9 @@ interface Education {
   id: string;
   period: string;
   school: string;
-  dept: string;
-  detail: string;
-  gpa: Gpa[];
+  dept?: string;
+  detail?: string;
+  gpa?: Gpa[];
 }
 
 interface Project {
@@ -20,7 +20,9 @@ interface Project {
   title: string;
   role: string;
   bullets: string[];
-  url?: string;
+  githubUrl?: string;
+  colabUrl?: string;
+  deployUrl?: string;
 }
 
 interface SkillGroup {
@@ -65,7 +67,7 @@ export const DATA: Data = {
   email: 'luciok1203@snu.ac.kr',
   github: 'github.com/luciok1203',
   tagline:
-    'Undergraduate student in ECE, SNU — interested in machine learning, neural networks, and medical AI.',
+    'Undergraduate student in ECE, SNU — interested in\nmachine learning, neural networks, and medical AI.',
   interests: ['Machine Learning', 'Neural Networks', 'Medical AI'],
 
   education: [
@@ -81,9 +83,6 @@ export const DATA: Data = {
       id: 'sejong',
       period: 'Mar. 2023 — Feb. 2025',
       school: 'Sejong Science High School',
-      dept: '',
-      detail: '',
-      gpa: [],
     },
   ],
 
@@ -98,19 +97,21 @@ export const DATA: Data = {
         'Unified campus announcement service for SNU',
         'Implemented user and post CRUD',
       ],
-      url: 'https://github.com/wafflestudio/23-5-team2-web',
+      githubUrl: 'https://github.com/wafflestudio/23-5-team2-web',
+      deployUrl: 'https://d2sajtt7b5xbu6.cloudfront.net/',
     },
     {
       id: 'grade-prediction',
       period: 'Fall 2023',
       org: 'Sejong Science High School',
-      title: 'GPA Prediction with Neural Networks',
-      role: 'Team Lead (4-person team)',
+      title: 'Grade Prediction with Neural Networks',
+      role: 'Team Leader',
       bullets: [
-        'Built a GPA prediction model using a 3-layer MLP with TensorFlow/Keras',
+        'Built a grade prediction model using a 3-layer MLP with TensorFlow/Keras',
         'Identified limitations including small dataset size (n=32) and improper encoding of categorical features',
       ],
-      url: 'https://colab.research.google.com/drive/1kvJ_F5LQVfGzDLh-PCLI3FQ8DfPHxwGg?usp=sharing',
+      colabUrl:
+        'https://colab.research.google.com/drive/1kvJ_F5LQVfGzDLh-PCLI3FQ8DfPHxwGg?usp=sharing',
     },
   ],
 
